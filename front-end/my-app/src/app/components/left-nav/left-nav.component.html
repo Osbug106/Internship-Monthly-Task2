@@ -1,0 +1,14 @@
+<app-header [sidenav]="sidenav"></app-header>
+
+<mat-sidenav-container>
+    <mat-sidenav class="mat-elevation-z8" #sidenav="matSidenav">
+        <mat-nav-list *ngIf="sortedCategories.length">
+            <app-app-menu-list-item *ngFor="let item of sortedCategories" [item]="item"></app-app-menu-list-item>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <!-- <div class="content mat-elevation-z8"> -->
+        <app-main-content></app-main-content>
+        <!-- </div> -->
+    </mat-sidenav-content>
+</mat-sidenav-container>

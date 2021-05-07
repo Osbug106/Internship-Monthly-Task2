@@ -1,0 +1,41 @@
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.img-zoom-container {
+    position: relative;
+}
+
+.img-zoom-lens {
+    position: absolute;
+    border: 1px solid #d4d4d4;
+    /*set the size of the lens:*/
+    width: 40px;
+    height: 40px;
+}
+
+.img-zoom-result {
+    // border: 1px solid #d4d4d4;
+    /*set the size of the result div:*/
+    width: 450px;
+    height: 400px;
+    // box-shadow: 0 4px 8px 0 rgba(248, 0, 0, 0.5);
+    background-color: none;
+    transition: 0.3s;
+    border-radius: 5px;
+    position: absolute;
+    top: 100px;
+    right: 50px;
+}

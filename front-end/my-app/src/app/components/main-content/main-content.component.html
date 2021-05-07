@@ -1,0 +1,70 @@
+<div *ngIf="isProductDetails && products">
+    <div class="content">
+        <div fxLayout="row wrap" fxLayoutGap="16px grid">
+            <div fxFlex="20%" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let product of products | paginate: { itemsPerPage: 20, currentPage: p}">
+                <mat-card class="mat-elevation-z4 mainCard" (click)="cardClick(product)">
+                    <mat-card-header>
+                    </mat-card-header>
+                    <img mat-card-image class="imgCenter" [src]="serverURL+product.product_images[0][ '250']">
+
+                    <mat-card-content>
+                    </mat-card-content>
+                    <mat-card-actions>
+                    </mat-card-actions>
+
+                    <div class="title">${{product.price}}</div>
+                    <div class="title">{{product.title}}</div>
+                </mat-card>
+            </div>
+        </div>
+        <div class="paginator">
+            <pagination-controls autoHide="true" responsive="true" (pageChange)="p = $event"></pagination-controls>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="!isProductDetails && productDetails" class="content">
+    <div class="container">
+        <div class="card">
+            <div class="container-fliud">
+                <div class="wrapper row">
+                    <div class="preview col-md-6">
+
+                        <!-- <div class="preview-pic tab-content">
+                            <div class="tab-pane active" id="pic-1">
+                                <img #mainImg src={{mainImage}}/>
+                            </div>
+                        </div> -->
+
+                        <div class="img-zoom-container">
+                            <img id="myimage" src={{mainImage}} width="300" height="240" (mouseenter)="imageZoom('myimage', 'myresult');">
+                        </div>
+
+                        <ul class="preview-thumbnail nav nav-tabs">
+                            <li>
+                                <img #img1 class="imgCenter" style="height: 100px !important;" [src]="serverURL+productDetails.product_images[0]['250']" (click)="changeMainImage(img1)" />
+                            </li>
+                            <li>
+                                <img #img2 class="imgCenter" style="height: 100px !important;" src="../../../assets/images/image1.jpg" (click)="changeMainImage(img2)" />
+                            </li>
+                        </ul>
+
+                    </div>
+                    <div class="details col-md-6">
+                        <h3 class="product-title">{{productDetails.title}}</h3>
+                        <p class="product-description">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Reprehenderit, cumque?</p>
+                        <h4 class="price">Price: <span>${{productDetails.price}}</span></h4>
+                        <p class="vote"><strong>91%</strong> of buyers enjoyed this product!</p>
+                        <div class="action">
+                            <button class="add-to-cart btn btn-default" type="button">add to cart</button>
+                            <button class="like btn btn-default" type="button"><span class="fa fa-heart"></span></button>
+                        </div>
+                    </div>
+                    <div>
+                        <div id="myresult" class="img-zoom-result"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

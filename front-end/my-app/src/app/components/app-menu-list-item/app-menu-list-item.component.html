@@ -1,0 +1,14 @@
+<a mat-list-item [ngStyle]="{'padding-left': (depth * 12) + 'px'}" (click)="onItemSelected(item)" class="menu-list-item">
+    <span fxFlex *ngIf="item.children && item.children.length">
+        <span fxFlex></span>
+    <mat-icon [@indicatorRotate]="expanded ? 'expanded': 'collapsed'">
+        expand_more
+    </mat-icon>
+    </span>
+    {{item.name}}
+    <!-- <span class="leftCount">{{item.productCount}}</span> -->
+</a>
+<div *ngIf="expanded">
+    <app-app-menu-list-item *ngFor="let child of item.children" [item]="child" [depth]="depth+1">
+    </app-app-menu-list-item>
+</div>
