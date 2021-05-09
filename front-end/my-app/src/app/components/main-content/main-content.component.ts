@@ -1,7 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { FetchProductsService } from 'src/app/services/fetch-products.service';
 import { NgxImgZoomService } from "ngx-img-zoom";
+import * as $ from "jquery";
 
 @Component({
   selector: 'app-main-content',
@@ -74,55 +75,59 @@ export class MainContentComponent implements OnInit {
   }
   
   ///////////////////////////////
-  
-  imageZoom(imgID, resultID) {
-    // this.showZoomWin();
-    var img, lens, result, cx, cy;
-    img = document.getElementById(imgID);
-    result = document.getElementById(resultID);
-    lens = document.createElement("DIV");
-    lens.setAttribute("class", "img-zoom-lens");
-    img.parentElement.insertBefore(lens, img);
-    cx = result.offsetWidth / lens.offsetWidth;
-    cy = result.offsetHeight / lens.offsetHeight;
-    img.src = img.src.replace("/250/", "/700/")
-    result.style.backgroundImage = "url('" + img.src + "')";
-    result.style.backgroundSize = (img.width * cx) + "px " + (img.height * cy) + "px";
-    lens.addEventListener("mousemove", moveLens);
-    img.addEventListener("mousemove", moveLens);
-    lens.addEventListener("touchmove", moveLens);
-    img.addEventListener("touchmove", moveLens);
-    function moveLens(e) {
-      var pos, x, y;
-      e.preventDefault();
-      pos = getCursorPos(e);
-      x = pos.x - (lens.offsetWidth / 2);
-      y = pos.y - (lens.offsetHeight / 2);
-      if (x > img.width - lens.offsetWidth) { x = img.width - lens.offsetWidth; }
-      if (x < 0) { x = 0; }
-      if (y > img.height - lens.offsetHeight) { y = img.height - lens.offsetHeight; }
-      if (y < 0) { y = 0; }
-      lens.style.left = x + "px";
-      lens.style.top = y + "px";
-      result.style.backgroundPosition = "-" + (x * cx) + "px -" + (y * cy) + "px";
-    }
-    function getCursorPos(e) {
-      var a, x = 0, y = 0;
-      e = e || window.event;
-      a = img.getBoundingClientRect();
-      x = e.pageX - a.left;
-      y = e.pageY - a.top;
-      x = x - window.pageXOffset;
-      y = y - window.pageYOffset;
-      return { x: x, y: y };
-    }
-  }
-  
-  showZoomWin(){
+  @ViewChild('myresult') resultID: ElementRef
+  @ViewChild('myimage') imgID: ElementRef
+  @ViewChild('zoomDiv') zoomDiv: ElementRef
+  imageZoom() {
     this.showZoom = true;
-  }
-  hideZoomWin(){
-    this.showZoom = false;
+      var img, lens, result, cx, cy;
+      result = this.resultID.nativeElement;
+      img = this.imgID.nativeElement;
+      lens = this.zoomDiv.nativeElement;
+      img.parentElement.insertBefore(lens, img);
+      cx = result.offsetWidth / lens.offsetWidth;
+      cy = result.offsetHeight / lens.offsetHeight;
+      img.src = img.src.replace("/250/", "/700/")
+      result.style.backgroundImage = "url('" + img.src + "')";
+      result.style.backgroundSize = (img.width * cx) + "px " + (img.height * cy) + "px";
+      lens.addEventListener("mousemove", moveLens);
+      img.addEventListener("mousemove", moveLens);
+      lens.addEventListener("touchmove", moveLens);
+      img.addEventListener("touchmove", moveLens);
+      function moveLens(e) {
+        var pos, x, y;
+        e.preventDefault();
+        pos = getPointerPosition(e);
+        x = pos.x - (lens.offsetWidth / 2);
+        y = pos.y - (lens.offsetHeight / 2);
+        if (x > img.width - lens.offsetWidth) { x = img.width - lens.offsetWidth; }
+        if (x < 0) { x = 0; }
+        if (y > img.height - lens.offsetHeight) { y = img.height - lens.offsetHeight; }
+        if (y < 0) { y = 0; }
+        lens.style.left = x + "px";
+        lens.style.top = y + "px";
+        result.style.backgroundPosition = "-" + (x * cx) + "px -" + (y * cy) + "px";
+      }
+      function getPointerPosition(e) {
+        var a, x = 0, y = 0;
+        e = e || window.event;
+        a = img.getBoundingClientRect();
+        x = e.pageX - a.left;
+        y = e.pageY - a.top;
+        x = x - window.pageXOffset;
+        y = y - window.pageYOffset;
+        return { x: x, y: y };
+      }
+    }
+    
+    showZoomWin(){
+      this.showZoom = true;
+      this.zoomDiv.nativeElement.style.opacity = 1;
+    }
+    hideZoomWin(){
+      this.showZoom = false;
+      this.zoomDiv.nativeElement.style.opacity = 0;
+    }
+    
   }
   
-}

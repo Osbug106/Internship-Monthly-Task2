@@ -37,7 +37,10 @@
                         </div> -->
 
                         <div class="img-zoom-container">
-                            <img id="myimage" src={{mainImage}} width="300" height="240" (mouseenter)="imageZoom('myimage', 'myresult');">
+                            <div class="outerImg" (mouseenter)="showZoomWin()" (mouseleave)="hideZoomWin()">
+                                <img #myimage id="myimage" src={{mainImage}} width="300" height="240" (mouseenter)="imageZoom();">
+                                <div #zoomDiv id="zoomDiv" class="img-zoom-lens"></div>
+                            </div>
                         </div>
 
                         <ul class="preview-thumbnail nav nav-tabs">
@@ -57,8 +60,8 @@
                             <button class="like btn btn-default" type="button"><span class="fa fa-heart"></span></button>
                         </div>
                     </div>
-                    <div>
-                        <div id="myresult" class="img-zoom-result"></div>
+                    <div *ngIf="showZoom">
+                        <div #myresult id="myresult" class="img-zoom-result"></div>
                     </div>
                 </div>
             </div>

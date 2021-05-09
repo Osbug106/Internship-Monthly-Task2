@@ -1,5 +1,3 @@
-/* You can add global styles to this file, and also import other style files */
-
 html,
 body {
     height: 100%;
@@ -20,22 +18,42 @@ body {
 
 .img-zoom-lens {
     position: absolute;
+    width: 70px;
+    height: 70px;
     border: 1px solid #d4d4d4;
-    /*set the size of the lens:*/
-    width: 40px;
-    height: 40px;
+    background-image: url('./assets/images/zoom-image.png');
+    background-repeat: repeat;
+    background-size: contain;
+    opacity: 500;
+    // display: none;
 }
 
 .img-zoom-result {
-    // border: 1px solid #d4d4d4;
-    /*set the size of the result div:*/
     width: 450px;
     height: 400px;
-    // box-shadow: 0 4px 8px 0 rgba(248, 0, 0, 0.5);
     background-color: none;
     transition: 0.3s;
     border-radius: 5px;
     position: absolute;
-    top: 100px;
+    top: 20px;
     right: 50px;
+    // border: 1px solid #d4d4d4;
+    // box-shadow: 0 4px 8px 0 rgba(0, 79, 248, 0.5);
+}
+
+.show {
+    opacity: 500;
+}
+
+.hide {
+    opacity: 0;
+}
+
+.outerImg {
+    width: 320px;
+    height: 260px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
