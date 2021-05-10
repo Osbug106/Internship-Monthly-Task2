@@ -17,7 +17,6 @@ export class MainContentComponent implements OnInit {
   p: number = 1;
   isProductDetails: boolean = true;
   mainImage:String;
-  showZoom:boolean;
 
   constructor(private aRoute:ActivatedRoute, private route: Router, private proService:FetchProductsService, private ngxImgZoom: NgxImgZoomService) {
     this.route.events.subscribe(event => {
@@ -78,13 +77,16 @@ export class MainContentComponent implements OnInit {
   @ViewChild('myresult') resultID: ElementRef
   @ViewChild('myimage') imgID: ElementRef
   @ViewChild('zoomDiv') zoomDiv: ElementRef
+  showZoom:boolean;
+  showLens:boolean;
   imageZoom() {
-    this.showZoom = true;
+      this.showZoom = true;
       var img, lens, result, cx, cy;
       result = this.resultID.nativeElement;
+      this.showLens = true;
       img = this.imgID.nativeElement;
       lens = this.zoomDiv.nativeElement;
-      img.parentElement.insertBefore(lens, img);
+      lens.style.opacity = 1;
       cx = result.offsetWidth / lens.offsetWidth;
       cy = result.offsetHeight / lens.offsetHeight;
       img.src = img.src.replace("/250/", "/700/")
@@ -104,8 +106,8 @@ export class MainContentComponent implements OnInit {
         if (x < 0) { x = 0; }
         if (y > img.height - lens.offsetHeight) { y = img.height - lens.offsetHeight; }
         if (y < 0) { y = 0; }
-        lens.style.left = x + "px";
-        lens.style.top = y + "px";
+        lens.style.left = (x + 5) + "px";
+        lens.style.top = (y + 5) + "px";
         result.style.backgroundPosition = "-" + (x * cx) + "px -" + (y * cy) + "px";
       }
       function getPointerPosition(e) {
@@ -122,12 +124,15 @@ export class MainContentComponent implements OnInit {
     
     showZoomWin(){
       this.showZoom = true;
-      this.zoomDiv.nativeElement.style.opacity = 1;
     }
     hideZoomWin(){
       this.showZoom = false;
+      this.showLens = false;
       this.zoomDiv.nativeElement.style.opacity = 0;
     }
-    
+    showLensDiv()
+    {
+      this.showLens = true;
+    }
   }
   

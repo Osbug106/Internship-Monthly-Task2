@@ -38,8 +38,8 @@
 
                         <div class="img-zoom-container">
                             <div class="outerImg" (mouseenter)="showZoomWin()" (mouseleave)="hideZoomWin()">
-                                <img #myimage id="myimage" src={{mainImage}} width="300" height="240" (mouseenter)="imageZoom();">
-                                <div #zoomDiv id="zoomDiv" class="img-zoom-lens"></div>
+                                <img #myimage id="myimage" src={{mainImage}} width="300" height="240" (mousemove)="imageZoom();">
+                                <div *ngIf="showLens" #zoomDiv id="zoomDiv" class="img-zoom-lens"></div>
                             </div>
                         </div>
 
