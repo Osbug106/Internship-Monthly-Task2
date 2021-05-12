@@ -188,6 +188,8 @@ module.exports.getByProductId = (req, res) => {
                     title: 1,
                     _id: 1,
                     price: 1,
+                    sku: 1,
+                    description: 1,
                     product_images: {
                         250: 1,
                         700: 1,
@@ -214,6 +216,9 @@ module.exports.getByProductId = (req, res) => {
                                 businessName: 1,
                             },
                             _id: 1,
+                            location: 1,
+                            business_name: 1,
+                            profileCompletion: 1,
                             images: {
                                 profile_pic: {
                                     250: 1,
@@ -232,6 +237,8 @@ module.exports.getByProductId = (req, res) => {
                     title: 1,
                     _id: 1,
                     price: 1,
+                    sku: 1,
+                    description: 1,
                     product_images: {
                         250: 1,
                         700: 1,
@@ -242,7 +249,7 @@ module.exports.getByProductId = (req, res) => {
         ])
         .exec()
         .then((result) => {
-            console.log(`result`, result);
+            // console.log(`result`, result);
             res.json({
                 isOK: true,
                 data: result,

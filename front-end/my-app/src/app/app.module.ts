@@ -17,6 +17,7 @@ import { NgxImgZoomModule } from 'ngx-img-zoom';
 import { NgxImageZoomModule } from 'ngx-image-zoom';
 import { ImageZoomComponent } from './components/image-zoom/image-zoom.component';
 import { MoveBackgroundDirective } from './components/directives/move-background.directive';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { MoveBackgroundDirective } from './components/directives/move-background
     FlexLayoutModule,
     NgxPaginationModule,
     NgxImgZoomModule,
-    NgxImageZoomModule
+    NgxImageZoomModule,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

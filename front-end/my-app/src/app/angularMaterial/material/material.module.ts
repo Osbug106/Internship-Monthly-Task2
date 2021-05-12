@@ -9,6 +9,7 @@ import {MatDividerModule} from '@angular/material/divider';
 import {LayoutModule} from '@angular/cdk/layout';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { MatCardModule} from '@angular/material/card';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 
 const material = [
@@ -21,7 +22,8 @@ const material = [
   MatDividerModule,
   LayoutModule,
   MatExpansionModule,
-  MatCardModule
+  MatCardModule,
+  MatTooltipModule
 ];
 
 @NgModule({

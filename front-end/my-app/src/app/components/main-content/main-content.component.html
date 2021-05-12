@@ -24,44 +24,87 @@
 </div>
 
 <div *ngIf="!isProductDetails && productDetails" class="content">
-    <div class="container">
-        <div class="card">
-            <div class="container-fliud">
+    <div class="container" style="color: black !important;">
+        <div class="card " style="background-color: white; margin-top: 1px; ">
+            <div class="container-fliud ">
                 <div class="wrapper row">
-                    <div class="preview col-md-6">
+                    <div class="preview col-md-1 side-img-panel">
+                        <ul class="preview-thumbnail nav nav-tabs " *ngFor="let image of productDetails.product_images ">
+                            <div style="border: 1px solid gray;">
+                                <img #img1 class="imgCenter " [src]="serverURL+image[ '250'] " (click)="changeMainImage(img1) " />
+                            </div>
 
-                        <!-- <div class="preview-pic tab-content">
-                            <div class="tab-pane active" id="pic-1">
+                        </ul>
+
+                    </div>
+                    <div class="preview col-md-5 ">
+
+                        <!-- <div class="preview-pic tab-content ">
+                            <div class="tab-pane active " id="pic-1 ">
                                 <img #mainImg src={{mainImage}}/>
                             </div>
                         </div> -->
 
-                        <div class="img-zoom-container">
-                            <div class="outerImg" (mouseenter)="showZoomWin()" (mouseleave)="hideZoomWin()">
-                                <img #myimage id="myimage" src={{mainImage}} width="300" height="240" (mousemove)="imageZoom();">
-                                <div *ngIf="showLens" #zoomDiv id="zoomDiv" class="img-zoom-lens"></div>
+                        <div class="img-zoom-container ">
+                            <div class="outerImg " (mouseenter)="showZoomWin() " (mouseleave)="hideZoomWin() ">
+                                <img #myimage id="myimage " src={{mainImage}} width="300" (mousemove)="imageZoom(); ">
+                                <div *ngIf="showLens " #zoomDiv id="zoomDiv " class="img-zoom-lens "></div>
                             </div>
                         </div>
-
-                        <ul class="preview-thumbnail nav nav-tabs">
-                            <li>
-                                <img #img1 class="imgCenter" style="height: 100px !important;" [src]="serverURL+productDetails.product_images[0]['250']" (click)="changeMainImage(img1)" />
-                            </li>
-                        </ul>
-
                     </div>
                     <div class="details col-md-6">
-                        <h3 class="product-title">{{productDetails.title}}</h3>
-                        <p class="product-description">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Reprehenderit, cumque?</p>
-                        <h4 class="price">Price: <span>${{productDetails.price}}</span></h4>
-                        <p class="vote"><strong>91%</strong> of buyers enjoyed this product!</p>
-                        <div class="action">
-                            <button class="add-to-cart btn btn-default" type="button">add to cart</button>
-                            <button class="like btn btn-default" type="button"><span class="fa fa-heart"></span></button>
+                        <div>
+                            <div class="col-md-4">
+                                <div>
+                                    <img class="avatar" *ngIf="(serverURL + productDetails.merchant.images.profile_pic['250'])" [src]="serverURL + productDetails.merchant.images.profile_pic['250']" alt="Avatar">
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div style="font-weight: bold;">
+                                    {{productDetails.merchant.business_info[0].businessName}}
+                                </div>
+                                <div style="font-size: large;">
+                                    {{productDetails.merchant.location}}
+                                </div>
+                                <div>
+                                    <mat-icon matTooltip="Contact" style="margin-right: 15px;"> call</mat-icon>
+                                    <mat-icon style="color: green; margin-right: 15px;" matTooltip="Ready for delivery"> directions_car</mat-icon>
+                                    <mat-icon [class.complete]="productDetails.merchant.profileCompletion == 100" matTooltip="Profile" style="margin-right: 15px;">star_half</mat-icon>
+                                </div>
+                            </div>
                         </div>
+                        <mat-divider style="margin-top: 20px; margin-bottom: 20px;"></mat-divider>
+
+
+                        <h1 class="product-title ">{{productDetails.title}}</h1>
+                        <h4><b>SKU:</b> {{productDetails.sku}}</h4>
+                        <div>
+                            <table style="width:100%; background-color: lightgray; margin-bottom: 20px;">
+                                <tr>
+                                    <th>Qty</th>
+                                    <th>Price</th>
+                                </tr>
+                                <tr>
+                                    <td>0 - 1</td>
+                                    <td>${{productDetails.price}}</td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <p class="product-description" style="margin-bottom: 30px;">
+                            {{productDetails.description}}
+                        </p>
                     </div>
-                    <div *ngIf="showZoom">
-                        <div #myresult id="myresult" class="img-zoom-result"></div>
+                    <div *ngIf="showZoom ">
+                        <div #myresult id="myresult " class="img-zoom-result "></div>
+                    </div>
+                </div>
+                <div style="width: 100%;" class="buttonCenter">
+                    <div class="col-md-6 buttonCenter">
+                        <i class="fa fa-map-marker" aria-hidden="true"></i> Grand Rapids
+                    </div>
+                    <div class="col-md-6 buttonCenter">
+                        <i class="fa fa-phone" aria-hidden="true"></i>Click to View Number
                     </div>
                 </div>
             </div>
