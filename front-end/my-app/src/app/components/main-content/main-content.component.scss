@@ -66,10 +66,15 @@
         color: lightgray;
     }
     
+    .mainCard {
+        height: 300px !important;
+    }
+    
     .mainCard:hover {
         box-shadow: 5px 5px rgb(0, 132, 255, 0.1);
         background-color: rgb(0, 132, 255, 0.4);
         // border: 1px solid black;
+        cursor: pointer;
     }
     
     .title {

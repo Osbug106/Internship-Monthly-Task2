@@ -5,15 +5,17 @@
                 <mat-card class="mat-elevation-z4 mainCard" (click)="cardClick(product)">
                     <mat-card-header>
                     </mat-card-header>
-                    <img mat-card-image class="imgCenter" [src]="serverURL+product.product_images[0][ '250']">
 
-                    <mat-card-content>
+                    <mat-card-content style="margin-top: 15px;">
+                        <div style="height: 200px;">
+                            <img mat-card-image class="imgCenter" [src]="serverURL+product.product_images[0][ '250']">
+                        </div>
+                        <div style="margin-top: 10px;">
+                            <div class="title">${{product.price}}</div>
+                            <div class="title">{{product.title}}</div>
+                        </div>
                     </mat-card-content>
-                    <mat-card-actions>
-                    </mat-card-actions>
 
-                    <div class="title">${{product.price}}</div>
-                    <div class="title">{{product.title}}</div>
                 </mat-card>
             </div>
         </div>
@@ -47,7 +49,7 @@
 
                         <div class="img-zoom-container ">
                             <div class="outerImg " (mouseenter)="showZoomWin() " (mouseleave)="hideZoomWin() ">
-                                <img #myimage id="myimage " src={{mainImage}} width="300" (mousemove)="imageZoom(); ">
+                                <img #myimage id="myimage" src={{mainImage}} width="300" (mousemove)="imageZoom(); ">
                                 <div *ngIf="showLens " #zoomDiv id="zoomDiv " class="img-zoom-lens "></div>
                             </div>
                         </div>
