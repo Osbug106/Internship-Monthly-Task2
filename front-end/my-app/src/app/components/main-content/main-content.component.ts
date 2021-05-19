@@ -80,7 +80,9 @@ export class MainContentComponent implements OnInit {
   showZoom:boolean;
   showLens:boolean;
   imageZoom() {
+      this.showLens = true;
       this.showZoom = true;
+      this.showLensDiv();
       var img, lens, result, cx, cy;
       result = this.resultID.nativeElement;
       this.showLens = true;
@@ -89,9 +91,9 @@ export class MainContentComponent implements OnInit {
       lens.style.opacity = 1;
       cx = result.offsetWidth / lens.offsetWidth;
       cy = result.offsetHeight / lens.offsetHeight;
-      img.src = img.src.replace("/250/", "/700/")
+      img.src = img.src.replace("/250/", "/original/")
       result.style.backgroundImage = "url('" + img.src + "')";
-      result.style.backgroundSize = (img.width * cx) + "px " + (img.height * cy) + "px";
+        result.style.backgroundSize = (img.width * cx) + "px " + (img.height * cy) + "px";
       lens.addEventListener("mousemove", moveLens);
       img.addEventListener("mousemove", moveLens);
       lens.addEventListener("touchmove", moveLens);
@@ -129,10 +131,12 @@ export class MainContentComponent implements OnInit {
       this.showZoom = false;
       this.showLens = false;
       this.zoomDiv.nativeElement.style.opacity = 0;
+      this.zoomDiv.nativeElement.style.display = 'none';
     }
     showLensDiv()
     {
       this.showLens = true;
+      this.zoomDiv.nativeElement.style.display = 'block';
     }
   }
   

@@ -49,8 +49,8 @@
 
                         <div class="img-zoom-container ">
                             <div class="outerImg " (mouseenter)="showZoomWin() " (mouseleave)="hideZoomWin() ">
-                                <img #myimage id="myimage" src={{mainImage}} width="300" (mousemove)="imageZoom(); ">
-                                <div *ngIf="showLens " #zoomDiv id="zoomDiv " class="img-zoom-lens "></div>
+                                <img #myimage id="myimage" class="mainImg" src={{mainImage}} width="300" style="vertical-align: middle !important;" (mousemove)="imageZoom();">
+                                <div #zoomDiv id="zoomDiv " class="img-zoom-lens "></div>
                             </div>
                         </div>
                     </div>
@@ -97,16 +97,16 @@
                             {{productDetails.description}}
                         </p>
                     </div>
+                    <div style="width: 100%; margin-top: 50px !important;" class="buttonCenter">
+                        <div class="col-md-6 buttonCenter">
+                            <i class="fa fa-map-marker" aria-hidden="true"></i> Grand Rapids
+                        </div>
+                        <div class="col-md-6 buttonCenter">
+                            <i class="fa fa-phone" aria-hidden="true"></i>Click to View Number
+                        </div>
+                    </div>
                     <div *ngIf="showZoom ">
                         <div #myresult id="myresult " class="img-zoom-result "></div>
-                    </div>
-                </div>
-                <div style="width: 100%;" class="buttonCenter">
-                    <div class="col-md-6 buttonCenter">
-                        <i class="fa fa-map-marker" aria-hidden="true"></i> Grand Rapids
-                    </div>
-                    <div class="col-md-6 buttonCenter">
-                        <i class="fa fa-phone" aria-hidden="true"></i>Click to View Number
                     </div>
                 </div>
             </div>
