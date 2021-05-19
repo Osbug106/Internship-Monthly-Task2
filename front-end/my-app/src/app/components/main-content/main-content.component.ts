@@ -89,6 +89,16 @@ export class MainContentComponent implements OnInit {
       img = this.imgID.nativeElement;
       lens = this.zoomDiv.nativeElement;
       lens.style.opacity = 1;
+
+      if(img.width > (img.height*2)){
+        lens.style.width = (img.width / 3) + "px";
+        lens.style.height = (img.height / 1) + "px";
+      }
+      // else{
+      //   lens.style.width = (img.width / 2) + "px";
+      //   lens.style.height = (img.height / 2) + "px";
+      // }
+
       cx = result.offsetWidth / lens.offsetWidth;
       cy = result.offsetHeight / lens.offsetHeight;
       img.src = img.src.replace("/250/", "/original/")
