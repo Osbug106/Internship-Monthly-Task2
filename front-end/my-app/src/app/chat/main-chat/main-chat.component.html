@@ -1,0 +1,24 @@
+<body>
+    <section *ngIf="receiver" class="chat__section">
+        <div class="brand">
+            <div class="chathead">
+                <div style="position: relative;">
+                    <!-- <mat-icon style="font-size: small; position: absolute; right: -10px; bottom: -10px; color: rgb(0, 180, 69);">lens</mat-icon> -->
+                    <img class="avatar" src="../../../assets/images/img1.png" alt="">
+                </div>
+                <div style="padding-left: 10px; padding-top: 20px; padding-bottom: 5px;">
+                    <p style="font-size: large;">{{receiver.id.username}}</p>
+                </div>
+            </div>
+        </div>
+        <div #chatArea class="message__area custom-scrollbar-css">
+            <div *ngFor="let message of messages" class="message" [ngClass]="message.sender.id._id === userID ? 'outgoing' : 'incoming'">
+                {{message.message.body.text}}
+            </div>
+        </div>
+        <div class="msg-field">
+            <textarea #message id="textarea" placeholder="Write a message..." rows="1"></textarea>
+            <button id="sendBtn" class="send" (click)="sendMessage()">Send</button>
+        </div>
+    </section>
+</body>

@@ -1,6 +1,10 @@
 const router = require("express").Router();
 const categories = require("./categories");
 const products = require("./products");
+const login = require("./login");
+const chat = require("./chat");
 router.use("/categories", categories);
 router.use("/products", products);
+router.use("/login", login);
+router.use("/chat", chat);
 module.exports = router;

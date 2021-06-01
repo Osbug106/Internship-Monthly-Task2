@@ -30,38 +30,33 @@
         <div class="card " style="background-color: white; margin-top: 1px; ">
             <div class="container-fliud ">
                 <div class="wrapper row">
-                    <div class="preview col-md-1 side-img-panel">
-                        <ul class="preview-thumbnail nav nav-tabs " *ngFor="let image of productDetails.product_images ">
-                            <div style="border: 1px solid gray;">
-                                <img #img1 class="imgCenter " [src]="serverURL+image[ '250'] " (click)="changeMainImage(img1) " />
-                            </div>
+                    <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                        <div class="preview col-lg-2 col-md-2 col-sm-2 col-xs-3 side-img-panel">
+                            <ul class="preview-thumbnail nav nav-tabs ">
+                                <div style="border: 1px solid gray; margin-bottom: 4%;" *ngFor="let image of productDetails.product_images ">
+                                    <img #img1 class="imgCenter " [src]="serverURL+image[ '250'] " (click)="changeMainImage(img1) " />
+                                </div>
 
-                        </ul>
+                            </ul>
 
-                    </div>
-                    <div class="preview col-md-5 ">
-
-                        <!-- <div class="preview-pic tab-content ">
-                            <div class="tab-pane active " id="pic-1 ">
-                                <img #mainImg src={{mainImage}}/>
-                            </div>
-                        </div> -->
-
-                        <div class="img-zoom-container ">
-                            <div class="outerImg " (mouseenter)="showZoomWin() " (mouseleave)="hideZoomWin() ">
-                                <img #myimage id="myimage" class="mainImg" src={{mainImage}} width="300" style="vertical-align: middle !important;" (mousemove)="imageZoom();">
-                                <div #zoomDiv id="zoomDiv " class="img-zoom-lens "></div>
+                        </div>
+                        <div class="preview col-lg-4 col-md-9 col-sm-9 col-xs-8">
+                            <div class="img-zoom-container ">
+                                <div class="outerImg " (mouseenter)="showZoomWin() " (mouseleave)="hideZoomWin() ">
+                                    <img #myimage id="myimage" class="mainImg" src={{mainImage}} width="300" style="vertical-align: middle !important;" (mousemove)="imageZoom();">
+                                    <div #zoomDiv id="zoomDiv " class="img-zoom-lens "></div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="details col-md-6">
+                    <div class="details col-lg-6 col-md-12 col-sm-12">
                         <div>
-                            <div class="col-md-4">
+                            <div class="col-lg-4 col-md-4 col-sm-4">
                                 <div>
                                     <img class="avatar" *ngIf="(serverURL + productDetails.merchant.images.profile_pic['250'])" [src]="serverURL + productDetails.merchant.images.profile_pic['250']" alt="Avatar">
                                 </div>
                             </div>
-                            <div class="col-md-8">
+                            <div class="col-lg-8 col-md-8 col-sm-8">
                                 <div style="font-weight: bold;">
                                     {{productDetails.merchant.business_info[0].businessName}}
                                 </div>
@@ -71,7 +66,9 @@
                                 <div>
                                     <mat-icon matTooltip="Contact" style="margin-right: 15px;"> call</mat-icon>
                                     <mat-icon style="color: green; margin-right: 15px;" matTooltip="Ready for delivery"> directions_car</mat-icon>
-                                    <mat-icon [class.complete]="productDetails.merchant.profileCompletion == 100" matTooltip="Profile" style="margin-right: 15px;">star_half</mat-icon>
+                                    <mat-icon [class.complete]="productDetails.merchant.profileCompletion == 100" matTooltip="Profile" style="margin-right: 15px;">star_half </mat-icon>
+                                    <mat-icon matTooltip="Start Chat" style="margin-right: 15px; cursor: pointer; color: green"> chat </mat-icon>
+
                                 </div>
                             </div>
                         </div>

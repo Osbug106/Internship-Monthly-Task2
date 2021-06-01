@@ -19,10 +19,15 @@
   },
   "homepage": "https://github.com/Osbug106/Project_BackEnd#readme",
   "dependencies": {
+    "@types/socket.io": "^3.0.2",
+    "bcrypt": "^5.0.1",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.12.5",
-    "multer": "^1.4.2"
+    "multer": "^1.4.2",
+    "random-string": "^0.2.0",
+    "socket.io": "^4.1.2"
   },
   "devDependencies": {
     "cors": "^2.8.5",

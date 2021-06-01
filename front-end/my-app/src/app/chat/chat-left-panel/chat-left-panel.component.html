@@ -1,0 +1,25 @@
+<mat-sidenav-container>
+    <mat-sidenav class="mat-elevation-z8" #sidenav="matSidenav">
+        <!-- <div style="width: 100%; text-align:center">
+            <input type="text" name="" id="">
+            <mat-icon style="vertical-align: middle; right:0px">search</mat-icon>
+        </div> -->
+        <mat-nav-list>
+            <div class="chat" *ngFor="let chat of chats" (click)="showMessages(chat)">
+                <div style="position: relative;">
+                    <mat-icon *ngIf="checkOnlineUsers(chat)" style="font-size: small; position: absolute; right: -10px; bottom: -10px; color: rgb(0, 180, 69);">lens</mat-icon>
+                    <img class="avatar" src="../../../assets/images/img1.png" alt="">
+                </div>
+                <div style="line-height: 12px; padding-left: 10px; padding-top: 20px; padding-bottom: 5px;">
+                    <p style="font-size: large;">{{checkreciever(chat)}}</p>
+                    <p style="color:lightgrey;">{{chat.message.body.text}}</p>
+                </div>
+            </div>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content *ngIf="reciever">
+        <div class="content mat-elevation-z8">
+            <main-chat [receiver]="reciever" [channelId]="channelId"></main-chat>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>

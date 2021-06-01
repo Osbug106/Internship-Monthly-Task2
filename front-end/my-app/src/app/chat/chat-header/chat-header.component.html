@@ -1,0 +1,17 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <button mat-icon-button *ngIf="sidenav && sidenav.mode === 'over'" (click)="sidenav.toggle()">
+            <mat-icon *ngIf="!sidenav.opened">
+                menu
+            </mat-icon>
+            <mat-icon *ngIf="sidenav.opened">
+                close
+            </mat-icon>
+        </button>
+        <div style="display: flex; width: 100%; justify-content: space-between;">
+            <h1 [routerLink]="['/']" style="cursor: pointer;">SeeBiz</h1>
+            <!-- <span class="menu-spacer"></span> -->
+            <!-- <mat-icon matTooltip="Chats" style="cursor: pointer; color: white;" [routerLink]="['/chat']"> home </mat-icon> -->
+        </div>
+    </mat-toolbar-row>
+</mat-toolbar>

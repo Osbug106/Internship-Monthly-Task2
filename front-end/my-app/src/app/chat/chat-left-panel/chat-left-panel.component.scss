@@ -1,0 +1,87 @@
+mat-toolbar {
+    background: #004a9f;
+    color: white;
+}
+
+mat-sidenav {
+    margin: 16px;
+    width: 250px;
+    border-right: none;
+    background: #004a9f;
+    color: white;
+    border-radius: 10px;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    padding-left: 5px;
+    padding-right: 5px;
+    text-align: left;
+    // box-shadow: none!important;
+}
+
+.content {
+    height: calc(100vh - 98px);
+    border-radius: 10px;
+    margin: 16px;
+    margin-left: 32px;
+    // display: flex;
+    // justify-content: center;
+    // align-items: center;
+    // font-size: 2rem;
+    color: lightgray;
+}
+
+mat-sidenav-container {
+    height: calc(100vh - 65px);
+}
+
+mat-nav-list a {
+    color: white;
+}
+
+.avatar {
+    vertical-align: middle;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid rgb(0, 0, 0);
+}
+
+.chat {
+    height: 60px;
+    display: flex;
+    align-items: center;
+    margin-left: 5px;
+    margin-right: 5px;
+    border-bottom: 1px solid gray;
+    cursor: pointer;
+}
+
+.chat:active,
+.chat:focus {
+    border: 1px solid white !important;
+}
+
+
+/* Scrollbar */
+
+.custom-scrollbar-css {
+    height: auto;
+}
+
+.custom-scrollbar-css {
+    overflow-y: scroll;
+}
+
+.custom-scrollbar-css::-webkit-scrollbar {
+    width: 5px !important;
+}
+
+.custom-scrollbar-css::-webkit-scrollbar-track {
+    background: #eee !important;
+}
+
+.custom-scrollbar-css::-webkit-scrollbar-thumb {
+    border-radius: 1rem !important;
+    background-color: #008CBA !important;
+    background-image: linear-gradient(to top, #008CBA 0%, #272626 100%) !important;
+}

@@ -1,0 +1,97 @@
+<body>
+    <div class="main-block">
+        <!-- <div class="left-part">
+            <h1>Register</h1>
+            <p>Register to visit dashboard and other pages.</p>
+        </div> -->
+        <img class="logo" src="../../../assets/images/seebiz-logo.svg" alt="">
+        <form [formGroup]="form">
+            <div class="title">
+                <h2>Signup</h2>
+            </div>
+            <div class="inner-form">
+                <input type="text" formControlName="fname" placeholder="First name">
+                <small class="error-text" *ngIf="form.get('fname').invalid && form.get('fname').touched">
+                        <span *ngIf="form.get('fname').errors['required']">
+                            Enter first name
+                        </span>
+                        <span *ngIf="form.get('fname').errors['pattern']">
+                            Length: 3 to 20 characters<br>
+                            Number or special characters not allowed
+                        </span>
+                    </small>
+
+                <input type="text" formControlName="lname" placeholder="Last name">
+                <small class="error-text" *ngIf="form.get('lname').invalid && form.get('lname').touched">
+                        <span *ngIf="form.get('lname').errors['required']">
+                            Enter last name
+                        </span>
+                        <span *ngIf="form.get('lname').errors['pattern']">
+                            Length: 3 to 20 characters<br>
+                            Number or special characters not allowed
+                        </span>
+                    </small>
+
+                <input type="text" formControlName="username" placeholder="Username">
+                <small class="error-text" *ngIf="form.get('username').invalid && form.get('username').touched">
+                        <span *ngIf="form.get('username').errors['required'] && form.get('username').touched">
+                            Enter username
+                        </span>
+                        <span *ngIf="form.get('username').errors['notAvailable']">
+                            {{form.get('username').value}} already taken
+                        </span>
+                    </small>
+
+                <input type="email" formControlName="email" placeholder="Email">
+                <small class="error-text" *ngIf="form.get('email').invalid && form.get('email').touched">
+                        <span *ngIf="form.get('email').errors['required'] && form.get('email').touched">
+                            Enter email
+                        </span>
+                        <span *ngIf="form.get('email').errors['notAvailable']">
+                            {{form.get('email').value}} already registered
+                        </span>
+                        <span *ngIf="form.get('email').errors['pattern']">
+                            Invalid email
+                        </span>
+                    </small>
+
+                <input type="tel" formControlName="phone" placeholder="Phone">
+                <small class="error-text" *ngIf="form.get('phone').invalid && form.get('phone').touched">
+                        <span *ngIf="form.get('phone').errors['required']">
+                            Phone number required
+                        </span>
+                        <span *ngIf="form.get('phone').errors['pattern']">
+                            Invalid phone number
+                        </span>
+                    </small>
+                <input type="password" formControlName="password" placeholder="Password">
+                <small class="error-text" *ngIf="form.get('password').invalid && form.get('password').touched">
+                    <span *ngIf="form.get('password').errors['required']">
+                        Password required
+                    </span>
+                    <span *ngIf="form.get('password').errors['pattern']">
+                        Weak password<br>
+                        Length > 8<br>
+                        Must contain:<br>
+                        *number<br>
+                        *special character<br>
+                        *uppercase letter<br>
+                        *lowercase letter<br>
+                    </span>
+                </small>
+            </div>
+
+            <div>
+                <div class="checkbox">
+                    <input type="checkbox" formControlName="checkbox">
+                </div>
+                <span style="margin-top: 8px; margin-left: 15px; margin-bottom: 10px;">I agree to the <a href="#">Privacy Poalicy.</a>
+                </span><br>
+                <small class="error-text" *ngIf="form.get('checkbox').errors">*read the poalicy and check</small>
+            </div>
+
+            <button class="btn-hover btn-submit" type="submit" (click)="onSubmit()">Submit</button>
+            <button class="btn-hover btn-submit" type="submit" [routerLink]="['/login']">Login</button>
+        </form>
+    </div>
+</body>

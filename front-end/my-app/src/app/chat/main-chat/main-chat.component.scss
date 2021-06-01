@@ -1,0 +1,231 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    // align-items: center;
+    // justify-content: center;
+    // min-height: 100vh;
+    background: #F8F8F8;
+    font-family: 'Roboto', sans-serif;
+}
+
+section.chat__section {
+    width: 100%;
+    background: #fff;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.brand {
+    padding-left: 5px;
+    background: #2d4963;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.brand h1 {
+    text-transform: uppercase;
+    font-size: 20px;
+    color: #ffffff;
+    margin: 5px;
+}
+
+.brand .left {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.brand .left img {
+    color: #ffffff;
+}
+
+.brand .connections {
+    display: flex;
+}
+
+.brand .connections .connected {
+    padding: 10px;
+    margin: 0px 10px;
+    font-weight: normal;
+    color: white;
+    background: #8F8BE890;
+    transition: background 0.1s ease-in;
+}
+
+.brand .connections .connected.selected {
+    background: #8F8BE8;
+}
+
+.brand .connections .connected:nth-child(1) {
+    margin-right: 10px;
+}
+
+.brand .connections .connected:last-child {
+    margin-left: 10px;
+}
+
+.message__area {
+    height: 435px !important;
+    width: 100%;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    padding-top: 40px;
+}
+
+.msg-field {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 0px;
+    /* display: none; */
+    background: #f1f1f1;
+    border-top: 1px solid lightslategray;
+    bottom: 0px;
+}
+
+#textarea {
+    width: 80%;
+    font-size: 18px;
+    padding: 10px;
+    margin-left: 10px;
+    outline: none;
+    border: none;
+    font-family: sans-serif;
+    border-radius: 7px;
+}
+
+.message__area .left {
+    display: flex;
+    justify-content: flex-start;
+    padding: 0px 20px;
+}
+
+.message__area .right {
+    padding: 0px 20px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.message__area div .message {
+    margin: 0px;
+    align-items: flex-start;
+    margin: 10px 0px;
+    flex-direction: column;
+    display: flex;
+    justify-content: flex-start;
+    width: max-content;
+}
+
+.message__area .right .message {
+    align-items: flex-end;
+}
+
+.message__area div .message .sender {
+    font-weight: bold;
+    font-size: 12px;
+    margin-bottom: 10px;
+}
+
+.message__area div .message .message-text {
+    background: #8F8BE8;
+    color: white;
+    padding: 10px;
+    border-radius: 7px;
+}
+
+.incoming {
+    background: rgb(34, 223, 119);
+    display: block;
+}
+
+.outgoing {
+    background: #8F8BE8;
+    margin-left: auto;
+}
+
+.message {
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    max-width: 300px;
+    position: relative;
+    font-size: medium;
+}
+
+.message h4 {
+    position: absolute;
+    top: -20px;
+    left: 0;
+    font-size: 14px;
+}
+
+.send {
+    padding: 5px 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-right: 10px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    background-color: #008CBA;
+    color: black;
+    border: 2px solid #008CBA;
+    border-radius: 4px;
+}
+
+.send:hover {
+    background-color: #008CBA;
+    color: white;
+}
+
+.avatar {
+    vertical-align: middle;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid rgb(0, 0, 0);
+}
+
+.chathead {
+    color: white;
+    // height: 60px;
+    display: flex;
+    align-items: center;
+    margin-left: 5px;
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+
+/* Scrollbar */
+
+.custom-scrollbar-css {
+    height: 500px;
+}
+
+.custom-scrollbar-css {
+    overflow-y: scroll;
+}
+
+.custom-scrollbar-css::-webkit-scrollbar {
+    width: 5px;
+}
+
+.custom-scrollbar-css::-webkit-scrollbar-track {
+    background: #eee;
+}
+
+.custom-scrollbar-css::-webkit-scrollbar-thumb {
+    border-radius: 1rem;
+    background-color: #008CBA;
+    background-image: linear-gradient(to top, #008CBA 0%, #272626 100%);
+}
