@@ -6,6 +6,7 @@ import { ChatComponent } from './chat-component/chat.component';
 import { ChatHeaderComponent } from './chat-header/chat-header.component';
 import { ChatLeftPanelComponent } from './chat-left-panel/chat-left-panel.component';
 import { MainChatComponent } from './main-chat/main-chat.component';
+import { ChatService } from './services/chat.service';
 
 
 @NgModule({
@@ -14,6 +15,9 @@ import { MainChatComponent } from './main-chat/main-chat.component';
     ChatLeftPanelComponent,
     ChatComponent,
     MainChatComponent
+  ],
+  providers: [
+    ChatService
   ],
   imports: [
     CommonModule,

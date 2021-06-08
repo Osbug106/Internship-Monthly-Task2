@@ -1,24 +1,94 @@
-<body>
+<!-- Old Chat Messages -->
+<div *ngIf="!openNewChat">
     <section *ngIf="receiver" class="chat__section">
         <div class="brand">
             <div class="chathead">
                 <div style="position: relative;">
-                    <!-- <mat-icon style="font-size: small; position: absolute; right: -10px; bottom: -10px; color: rgb(0, 180, 69);">lens</mat-icon> -->
+                    <mat-icon *ngIf="checkOnlineUsers(receiver)" style="font-size: small; position: absolute; right: -10px; bottom: -13px; color: rgb(0, 180, 69);">lens</mat-icon>
                     <img class="avatar" src="../../../assets/images/img1.png" alt="">
                 </div>
                 <div style="padding-left: 10px; padding-top: 20px; padding-bottom: 5px;">
-                    <p style="font-size: large;">{{receiver.id.username}}</p>
+                    <p *ngIf="receiver.chatType !== 'group'" style="color: white !important; font-size: large;">{{receiver.id.username}}</p>
+                    <p *ngIf="receiver.chatType == 'group'" style="color: white !important; font-size: large;">{{receiver.chatSubject}}</p>
+                </div>
+
+            </div>
+            <div>
+                <mat-icon style="color: white; cursor: pointer;" (click)="moreChatOptionToggle()">more_vert</mat-icon>
+                <div *ngIf="moreChatOptions" class="dropdown-content" style="position: absolute; right: 15px;">
+                    <a (click)="clearChat()">Clear Chat</a>
+                    <a (click)="markUnread()">Mark as Unread</a>
+                    <a (click)="markRead()">Mark as Read</a>
                 </div>
             </div>
         </div>
-        <div #chatArea class="message__area custom-scrollbar-css">
-            <div *ngFor="let message of messages" class="message" [ngClass]="message.sender.id._id === userID ? 'outgoing' : 'incoming'">
-                {{message.message.body.text}}
+        <div #chatArea [ngClass]="chatSize() ? 'message_area_2' : 'message_area_1'" class="custom-scrollbar-css">
+            <div *ngFor="let chatMessage of messages">
+                <ng-container *ngIf='chatMessage.deletedBy.length'>
+                    <div *ngFor='let msg of chatMessage.deletedBy' style="width: fit-content;" class="message" [ngClass]="chatMessage.sender.id._id === userID ? 'outgoing' : 'incoming'">
+                        <p *ngIf="msg.userId != '60af7b406a9da71a700d10c3'"> {{chatMessage.message.body.text}}</p>
+                    </div>
+                </ng-container>
+                <div *ngIf='!chatMessage.deletedBy.length' style="width: fit-content;" class="message" [ngClass]="chatMessage.sender.id._id === userID ? 'outgoing' : 'incoming'">
+                    <span> {{chatMessage.message.body.text}}</span>
+                </div>
             </div>
         </div>
-        <div class="msg-field">
-            <textarea #message id="textarea" placeholder="Write a message..." rows="1"></textarea>
-            <button id="sendBtn" class="send" (click)="sendMessage()">Send</button>
+        <div class="new-msg-box">
+            <!-- <div style="padding-left: 10px;">
+                uploaded images to send
+                <img *ngFor="let src of selectedImagesToDisplay" width='100' height='100' style="padding-right: 10px;" [src]="src.result">
+            </div> -->
+            <div class="msg-field">
+                <textarea #message id="textarea" placeholder="Write a message..." rows="1"></textarea>
+                <!-- <div class="image-upload">
+                    <label for="file-input">
+                    <mat-icon style="cursor: pointer;">attachment</mat-icon>    
+                </label>
+                    <input #file_input id="file-input" type="file" style="display: none;" multiple (change)="checkSelectedFile();" accept=".png, .gif, .jpg, .jpeg, .mp4, .ogv, .webm" />
+                </div> -->
+                <button id="sendBtn" class="send" (click)="sendMessage();">Send</button>
+            </div>
         </div>
     </section>
-</body>
+</div>
+
+<!-- Compose New Chat -->
+<div *ngIf="openNewChat">
+    <section class="chat__section">
+        <div class="brand" style="justify-content: space-between; position: relative !important;">
+            <div class="chathead" style="padding-left: 10px; padding-top: 20px; padding-bottom: 5px;">
+                <p *ngIf="!newChatReciever && !groupChat" style="color: white !important; font-size: large;">Compose New Chat</p>
+                <p *ngIf="groupChat && !newGroupChatMembers.length" style="color: white !important; font-size: large;">Add Members</p>
+
+                <p *ngIf="newChatReciever && !groupChat" style="color: white !important; font-size: large;">{{newChatReciever.username}}</p>
+
+                <div *ngIf="newGroupChatMembers.length && groupChat" style="display: flex;">
+                    <p *ngFor="let member of newGroupChatMembers" style="color: white !important; font-size: small;">- {{member.username}}</p>
+                </div>
+
+            </div>
+            <div style="color: white !important; position:relative !important;">
+                <input #newChatInput placeholder="Search connects..." style="border: 1px solid black; border-radius: 5px; margin-right: 5px;" (keyup)="getConnections($event.target.value)">
+                <input *ngIf="groupChat" #newGroupName placeholder="Group name" style="border: 1px solid black; border-radius: 5px; margin-right: 5px;">
+                <span *ngIf="groupNameNotEntered" style="font-size: small; color: red;">Enter group name</span>
+
+                <div *ngIf="searchConnects.length" class="dropdown-content" style="position: absolute;">
+                    <a *ngFor="let connect of searchConnects" (click)="startNewChat(connect)">
+                        {{connect.username}}
+                    </a>
+                </div>
+                <button *ngIf="!groupChat" class="send" style="font-size: 14px !important; padding: 2px 2px !important;" (click)="allowToAddMembers()">New Group Chat</button>
+                <button *ngIf="groupChat" class="send" style="font-size: 14px !important; padding: 2px 2px !important;" (click)="allowNewChat()">New Chat</button>
+            </div>
+        </div>
+        <div class=" message_area_1 custom-scrollbar-css ">
+        </div>
+        <div class="new-msg-box ">
+            <div class="msg-field">
+                <textarea #message id="textarea" placeholder="Write a message..." rows="1"></textarea>
+                <button id="sendBtn" class="send" (click)="sendNewMessage();">Send</button>
+            </div>
+        </div>
+    </section>
+</div>

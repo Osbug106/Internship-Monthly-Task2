@@ -31,6 +31,12 @@ let messageSchema = new Schema({
             ref: "users",
         },
     },
+    participants: [{
+        userId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "users",
+        },
+    }, ],
     viewed: {
         type: Boolean,
         default: false,

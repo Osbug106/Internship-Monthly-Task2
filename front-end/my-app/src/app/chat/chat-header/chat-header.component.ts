@@ -1,4 +1,5 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { ChatService } from '../services/chat.service';
 
 @Component({
   selector: 'chat-header',
@@ -8,7 +9,7 @@ import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 export class ChatHeaderComponent implements OnInit {
 
   @Input() sidenav: any;
-  constructor(private change: ChangeDetectorRef) { }
+  constructor(private change: ChangeDetectorRef, private chatService: ChatService) { }
 
   ngOnInit(): void {
   }
@@ -17,4 +18,15 @@ export class ChatHeaderComponent implements OnInit {
     this.change.detectChanges();
   }
 
+  setNewChat() {
+    this.chatService.NewChat();
+  }
+
+  setGroupChat() {
+    this.chatService.GroupChat();
+  }
+
+  setPersonalChat() {
+    this.chatService.PersonalChat();
+  }
 }

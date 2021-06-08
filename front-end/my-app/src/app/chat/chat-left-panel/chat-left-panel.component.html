@@ -4,7 +4,7 @@
             <input type="text" name="" id="">
             <mat-icon style="vertical-align: middle; right:0px">search</mat-icon>
         </div> -->
-        <mat-nav-list>
+        <mat-nav-list *ngIf="personalChat">
             <div class="chat" *ngFor="let chat of chats" (click)="showMessages(chat)">
                 <div style="position: relative;">
                     <mat-icon *ngIf="checkOnlineUsers(chat)" style="font-size: small; position: absolute; right: -10px; bottom: -10px; color: rgb(0, 180, 69);">lens</mat-icon>
@@ -14,10 +14,29 @@
                     <p style="font-size: large;">{{checkreciever(chat)}}</p>
                     <p style="color:lightgrey;">{{chat.message.body.text}}</p>
                 </div>
+                <span *ngIf="getUnreadCount(chat)" style="border: 1px solid greenyellow; min-width: 20px; border-radius: 50%; text-align: center; font-size: medium; position: absolute; right: 3px; bottom: 19px; color: ghostwhite;">
+                    {{getUnreadCount(chat)}}
+                </span>
+            </div>
+        </mat-nav-list>
+        <mat-nav-list *ngIf="groupChat">
+            <div class="chat" *ngFor="let chat of groupChats" (click)="showMessages(chat)">
+                <div style="position: relative;">
+                    <!-- <mat-icon *ngIf="checkOnlineUsers(chat)" style="font-size: small; position: absolute; right: -10px; bottom: -10px; color: rgb(0, 180, 69);">lens</mat-icon> -->
+                    <img class="avatar" src="../../../assets/images/group-chat-avatar.jpg" alt="">
+                </div>
+                <div style="line-height: 12px; padding-left: 10px; padding-top: 20px; padding-bottom: 5px;">
+                    <p style="font-size: large;">{{chat.chatSubject}}</p>
+                    <p style="color:lightgrey;">{{chat.message.body.text}}</p>
+                </div>
+                <span *ngIf="getUnreadCount(chat)" style="border: 1px solid greenyellow; min-width: 20px; border-radius: 50%; text-align: center; font-size: medium; position: absolute; right: 3px; bottom: 19px; color: ghostwhite;">
+                    {{getUnreadCount(chat)}}
+                </span>
+                </span>
             </div>
         </mat-nav-list>
     </mat-sidenav>
-    <mat-sidenav-content *ngIf="reciever">
+    <mat-sidenav-content>
         <div class="content mat-elevation-z8">
             <main-chat [receiver]="reciever" [channelId]="channelId"></main-chat>
         </div>

@@ -9,7 +9,13 @@
             </mat-icon>
         </button>
         <div style="display: flex; width: 100%; justify-content: space-between;">
-            <h1 [routerLink]="['/']" style="cursor: pointer;">SeeBiz</h1>
+            <h1 [routerLink]="['/']" style="font-size: larger; cursor: pointer;">SeeBiz</h1>
+            <div style="display: flex;">
+                <h3 (click)="setPersonalChat();" style="font-size: medium; cursor: pointer; margin-left: 10px;">Personal Chats</h3>
+                <h3 (click)="setGroupChat();" style="font-size: medium; cursor: pointer; margin-left: 10px;">Group Chats</h3>
+                <h3 (click)="setNewChat();" style="font-size: medium; cursor: pointer; margin-left: 10px;">New Chat</h3>
+            </div>
+
             <!-- <span class="menu-spacer"></span> -->
             <!-- <mat-icon matTooltip="Chats" style="cursor: pointer; color: white;" [routerLink]="['/chat']"> home </mat-icon> -->
         </div>

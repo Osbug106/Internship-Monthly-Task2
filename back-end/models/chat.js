@@ -21,12 +21,18 @@ var ChatSchema = new Schema({
             ref: "users",
         },
     },
+    participants: [{
+        userId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "users",
+        },
+    }, ],
     productId: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: String,
         ref: "Product",
     }, // Id of the product from where the message is created
     postId: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: String,
         ref: "Post",
     }, // Shortlisted product Id
     chatSubject: {

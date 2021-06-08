@@ -3,8 +3,8 @@ const router = require("express").Router();
 
 router.get("/", chat.getChats);
 router.get("/messages/:id", chat.getMessages);
-// router.post("/createchat", chat.createChat);
-// router.post("/addmessage", chat.addMessage);
-// router.post("/updatechat", chat.updateChat);
+router.get("/getAllConnections/:id", chat.getAllConnections);
+router.get("/getGroupChats", chat.getGroupChats);
+// router.get("/createGroupChat", chat.createGroupChat);
 
 module.exports = router;

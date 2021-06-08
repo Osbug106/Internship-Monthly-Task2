@@ -18,11 +18,15 @@ export class ChatLeftPanelComponent implements OnChanges, OnInit {
   userID = this.getCookie("user");
   chatuser;
   chats;
+  groupChats;
   onlineUsers = [];
-
+  unreadChatCount: number;
   @Output() sideChat = new EventEmitter<any>();
-  reciever;
+  reciever: any;
   channelId = "";
+  openNewChat: boolean;
+  personalChat: boolean = true;
+  groupChat: boolean = false;
 
   constructor(private observer: BreakpointObserver, private chatService: ChatService, private router: Router, private changeRef: ChangeDetectorRef) {
     if (this.token) {
@@ -30,6 +34,18 @@ export class ChatLeftPanelComponent implements OnChanges, OnInit {
         .subscribe(
           (data) => {
             this.chats = data;
+          },
+          (error) => {
+            console.log("Error in fetching chats: ", error);
+          },
+          () => {
+            // console.log("Chats fetching complete.", this.chats);
+          });
+
+      this.chatService.getGroupChats(this.token)
+        .subscribe(
+          (data) => {
+            this.groupChats = data;
           },
           (error) => {
             console.log("Error in fetching chats: ", error);
@@ -48,6 +64,17 @@ export class ChatLeftPanelComponent implements OnChanges, OnInit {
 
   ngOnInit(): void {
     this.reciever = '';
+    this.checkChatEvent();
+
+    this.chatService.isPersonalChat
+      .subscribe((data) => {
+        this.personalChat = data;
+      });
+
+    this.chatService.isGroupChat
+      .subscribe((data) => {
+        this.groupChat = data;
+      });
   }
 
   ngAfterViewInit(): any {
@@ -98,18 +125,49 @@ export class ChatLeftPanelComponent implements OnChanges, OnInit {
   }
 
   showMessages(chat) {
+    if (chat.chatType !== 'group') {
+      if (chat.sender.id._id !== this.userID) {
+        this.reciever = chat.sender;
+        this.changeRef.detectChanges();
+      }
+      else {
+        this.reciever = chat.receiver;
+        this.changeRef.detectChanges();
+      }
+      this.channelId = chat.channelId;
 
-    // console.log(`In chat onclick: ${chat}`);
-    if (chat.sender.id._id !== this.userID) {
-      this.reciever = chat.sender;
-      this.changeRef.detectChanges();
+      if (chat.unreadMessageCount[0].userId === this.userID) {
+        chat.unreadMessageCount[0].totalUnread = 0;
+      }
+      else {
+        chat.unreadMessageCount[1].totalUnread = 0;
+      }
+
+      this.chatService.emit("resetUnreadCount", { chatId: chat.channelId, userId: this.userID });
+
+      this.chatService.showMessages();
     }
     else {
-      this.reciever = chat.receiver;
+
+      this.reciever = { participants: [...chat.participants], chatSubject: chat.chatSubject, chatType: chat.chatType };
       this.changeRef.detectChanges();
+
+      this.channelId = chat.channelId;
+
+      if (chat.unreadMessageCount[0].userId === this.userID) {
+        chat.unreadMessageCount[0].totalUnread = 0;
+      }
+
+      chat.unreadMessageCount.forEach((user) => {
+        if (user.userId === this.userID) {
+          user.totalUnread = 0;
+        }
+      });
+
+      this.chatService.emit("resetUnreadCount", { chatId: chat.channelId, userId: this.userID });
+
+      this.chatService.showMessages();
     }
-    this.channelId = chat.channelId;
-    // this.router.navigate([`/messages/${chat.channelId}`]);
   }
 
   getChats() {
@@ -135,12 +193,25 @@ export class ChatLeftPanelComponent implements OnChanges, OnInit {
     this.chatService.listen('updatedchat')
       .subscribe(
         (data) => {
-          console.log("updatedchat: ", data[0]);
-          var oldChatIndex = this.chats.findIndex((chat) => {
-            return chat.channelId == data[0].channelId;
-          });
-          this.chats.splice(oldChatIndex, 1);
-          this.chats.unshift(data[0]);
+          if (data[0].chatType !== 'group') {
+            var oldChatIndex = this.chats.findIndex((chat) => {
+              return chat.channelId == data[0].channelId;
+            });
+            if (oldChatIndex >= 0) {
+              this.chats.splice(oldChatIndex, 1);
+            }
+            this.chats.unshift(data[0]);
+          }
+          else {
+            console.log("In updateChats (group): ", data[0])
+            var oldChatIndex = this.groupChats.findIndex((chat) => {
+              return chat.channelId == data[0].channelId;
+            });
+            if (oldChatIndex >= 0) {
+              this.groupChats.splice(oldChatIndex, 1);
+            }
+            this.groupChats.unshift(data[0]);
+          }
         },
         (error) => {
           console.log("Error in main-chat socket: ", error);
@@ -161,5 +232,35 @@ export class ChatLeftPanelComponent implements OnChanges, OnInit {
       }
     }
     return null;
+  }
+
+  checkChatEvent() {
+    this.chatService.isNewChat
+      .subscribe(
+        data => {
+          this.openNewChat = data;
+        },
+        error => {
+          console.log("Error in chat-left-panel isNewChat: ", error);
+        },
+      );
+  }
+
+  getUnreadCount(chat) {
+    if (chat.chatType !== 'group') {
+      if (chat.unreadMessageCount[0].userId === this.userID) {
+        return chat.unreadMessageCount[0].totalUnread;
+      }
+      else {
+        return chat.unreadMessageCount[1].totalUnread;
+      }
+    }
+    else {
+      chat.unreadMessageCount.forEach((member) => {
+        if (member.userId == this.userID) {
+          return member.totalUnread;
+        }
+      });
+    }
   }
 }
