@@ -11,7 +11,6 @@
                     <p *ngIf="receiver.chatType !== 'group'" style="color: white !important; font-size: large;">{{receiver.id.username}}</p>
                     <p *ngIf="receiver.chatType == 'group'" style="color: white !important; font-size: large;">{{receiver.chatSubject}}</p>
                 </div>
-
             </div>
             <div>
                 <mat-icon style="color: white; cursor: pointer;" (click)="moreChatOptionToggle()">more_vert</mat-icon>
@@ -25,12 +24,14 @@
         <div #chatArea [ngClass]="chatSize() ? 'message_area_2' : 'message_area_1'" class="custom-scrollbar-css">
             <div *ngFor="let chatMessage of messages">
                 <ng-container *ngIf='chatMessage.deletedBy.length'>
-                    <div *ngFor='let msg of chatMessage.deletedBy' style="width: fit-content;" class="message" [ngClass]="chatMessage.sender.id._id === userID ? 'outgoing' : 'incoming'">
-                        <p *ngIf="msg.userId != '60af7b406a9da71a700d10c3'"> {{chatMessage.message.body.text}}</p>
-                    </div>
+                    <ng-container *ngFor='let msg of chatMessage.deletedBy'>
+                        <div *ngIf="msg.userId != userID" style="width: fit-content;" class="message" [ngClass]="chatMessage.sender.id._id === userID ? 'outgoing' : 'incoming'">
+                            {{chatMessage.message.body.text}}
+                        </div>
+                    </ng-container>
                 </ng-container>
                 <div *ngIf='!chatMessage.deletedBy.length' style="width: fit-content;" class="message" [ngClass]="chatMessage.sender.id._id === userID ? 'outgoing' : 'incoming'">
-                    <span> {{chatMessage.message.body.text}}</span>
+                    {{chatMessage.message.body.text}}
                 </div>
             </div>
         </div>

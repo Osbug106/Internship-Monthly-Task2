@@ -45,11 +45,35 @@ export class MainChatComponent implements OnChanges, OnInit {
     this.chatService.listen('message')
       .subscribe(
         (data) => {
-          console.log("Data back from socket server: ", data.message);
           if (data.chatId === this.chatID) {
             this.messages.push(data);
             this.scrollToBottom();
           }
+        },
+        (error) => {
+          console.log("Error in main-chat socket: ", error);
+        },
+        () => {
+        });
+
+    this.chatService.listen('chatCleared')
+      .subscribe(
+        (data) => {
+          this.chatService.getMessages(this.chatID)
+            .subscribe(
+              (messages) => {
+                this.messages = messages;
+                setTimeout(() => {
+                  this.scrollToBottom();
+                }, 0);
+              },
+              (error) => {
+                console.log("Error in fetching messages after clearChat: ", error);
+              },
+              () => {
+                // console.log("Messages fetched successfully.", this.messages);
+              }
+            );
         },
         (error) => {
           console.log("Error in main-chat socket: ", error);
@@ -135,7 +159,8 @@ export class MainChatComponent implements OnChanges, OnInit {
         },
         receiver: {
           id: { _id: this.receiver.id._id }
-        }
+        },
+        deletedBy: [],
       }
       this.chatService.emit('message', msg);
     }
@@ -156,7 +181,8 @@ export class MainChatComponent implements OnChanges, OnInit {
         receiver: {
           id: { _id: this.receiver.participants[0].userId }
         },
-        participants: this.receiver.participants
+        participants: this.receiver.participants,
+        deletedBy: [],
       }
       // this.messages.push(msg);
       this.chatService.emit('groupMessage', msg);
@@ -290,7 +316,8 @@ export class MainChatComponent implements OnChanges, OnInit {
         receiver: {
           id: { _id: this.newChatReciever._id }
         },
-        chatType: ""
+        chatType: "",
+        deletedBy: [],
       }
       this.chatService.emit('newChatMessage', msg);
     }
@@ -318,6 +345,7 @@ export class MainChatComponent implements OnChanges, OnInit {
         chatType: "group",
         chatSubject: this.newGroupName.nativeElement.value,
         participants: this.newGroupChatMembers,
+        deletedBy: [],
       }
       this.chatService.emit('newGroup', msg);
     }

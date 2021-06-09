@@ -111,6 +111,7 @@ module.exports.getGroupChats = async(req, res) => {
         attachments: 1,
         createdDate: 1,
         updatedAt: 1,
+        deletedBy: 1,
     }).sort({
         updatedAt: "descending",
     });
@@ -209,6 +210,7 @@ module.exports.addMessage = (data) => {
                 _id: data.receiver.id._id,
             },
         },
+        deletedBy: [],
     });
 
     newMessage.save((err, user) => {
@@ -247,6 +249,7 @@ module.exports.addGroupMessage = (data) => {
             },
         },
         participants: data.participants,
+        deletedBy: [],
     });
 
     newMessage.save((err, user) => {
@@ -294,18 +297,46 @@ module.exports.resetUnreadCount = async(chatId, userId) => {
         $set: {
             "unreadMessageCount.$.totalUnread": 0,
         },
+    }, {
+        timestamps: false,
     });
 };
 
 module.exports.incUnreadCount = async(chatId, userId) => {
-    await Chat.updateOne({
+    var count = await Chat.find({
         channelId: chatId,
         "unreadMessageCount.userId": userId,
     }, {
-        $inc: {
-            "unreadMessageCount.$.totalUnread": 1,
-        },
+        unreadMessageCount: 1,
     });
+
+    var unreadCount;
+
+    count[0].unreadMessageCount.forEach((obj) => {
+        if (obj.userId == userId) {
+            unreadCount = obj.totalUnread;
+        }
+    });
+
+    if (unreadCount == -1) {
+        await Chat.updateOne({
+            channelId: chatId,
+            "unreadMessageCount.userId": userId,
+        }, {
+            $set: {
+                "unreadMessageCount.$.totalUnread": 1,
+            },
+        });
+    } else {
+        await Chat.updateOne({
+            channelId: chatId,
+            "unreadMessageCount.userId": userId,
+        }, {
+            $inc: {
+                "unreadMessageCount.$.totalUnread": 1,
+            },
+        });
+    }
 };
 
 module.exports.getAllConnections = async(req, res) => {
@@ -375,7 +406,7 @@ module.exports.createGroupChat = (data) => {
     var tempUnreadCount = [];
     tempUnreadCount.push({
         userId: data.sender.id,
-        totalUnread: 1,
+        totalUnread: 0,
     });
     data.participants.forEach((participant) => {
         tempUnreadCount.push({

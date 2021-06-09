@@ -170,7 +170,9 @@ io.on("connection", (socket) => {
         await addGroupMessage(data);
 
         data.participants.forEach((member) => {
-            incUnreadCount(data.chatId, member.userId);
+            if (member.userId != data.sender.id._id) {
+                incUnreadCount(data.chatId, member.userId);
+            }
         });
 
         var updatedchat = await updateChat(data);
@@ -193,7 +195,9 @@ io.on("connection", (socket) => {
         await addGroupMessage(data);
 
         data.participants.forEach((member) => {
-            incUnreadCount(data.chatId, member.userId);
+            if (member.userId != data.sender.id._id) {
+                incUnreadCount(data.chatId, member.userId);
+            }
         });
 
         newChat.push(await createGroupChat(data));
@@ -218,6 +222,10 @@ io.on("connection", (socket) => {
 
     socket.on("clearChat", (data) => {
         clearChat(data);
+        var sender = getUser(data.userId);
+        sender.socketID.forEach((socketid) => {
+            io.to(socketid).emit("chatCleared", true);
+        });
     });
 
     socket.on("markUnread", (data) => {

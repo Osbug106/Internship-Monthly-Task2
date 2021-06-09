@@ -245,22 +245,4 @@ export class ChatLeftPanelComponent implements OnChanges, OnInit {
         },
       );
   }
-
-  getUnreadCount(chat) {
-    if (chat.chatType !== 'group') {
-      if (chat.unreadMessageCount[0].userId === this.userID) {
-        return chat.unreadMessageCount[0].totalUnread;
-      }
-      else {
-        return chat.unreadMessageCount[1].totalUnread;
-      }
-    }
-    else {
-      chat.unreadMessageCount.forEach((member) => {
-        if (member.userId == this.userID) {
-          return member.totalUnread;
-        }
-      });
-    }
-  }
 }

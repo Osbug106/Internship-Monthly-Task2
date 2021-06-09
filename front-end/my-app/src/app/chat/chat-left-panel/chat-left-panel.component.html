@@ -14,9 +14,18 @@
                     <p style="font-size: large;">{{checkreciever(chat)}}</p>
                     <p style="color:lightgrey;">{{chat.message.body.text}}</p>
                 </div>
-                <span *ngIf="getUnreadCount(chat)" style="border: 1px solid greenyellow; min-width: 20px; border-radius: 50%; text-align: center; font-size: medium; position: absolute; right: 3px; bottom: 19px; color: ghostwhite;">
-                    {{getUnreadCount(chat)}}
-                </span>
+                <ng-container *ngFor="let unreadCount of chat.unreadMessageCount">
+                    <ng-container *ngIf="unreadCount.totalUnread == -1 && unreadCount.userId == userID">
+                        <span style="border-radius: 50%; text-align: center; font-size: medium; position: absolute; right: 3px; bottom: 19px;">
+                             <mat-icon style="font-size: medium; color: rgb(0, 180, 69);">lens</mat-icon>
+                        </span>
+                    </ng-container>
+                    <ng-container *ngIf="unreadCount.totalUnread > 0 && unreadCount.userId == userID">
+                        <span style="border: 1px solid greenyellow; min-width: 20px; border-radius: 50%; text-align: center; font-size: medium; position: absolute; right: 3px; bottom: 19px; color: ghostwhite;">
+                            {{unreadCount.totalUnread}}
+                        </span>
+                    </ng-container>
+                </ng-container>
             </div>
         </mat-nav-list>
         <mat-nav-list *ngIf="groupChat">
@@ -29,9 +38,18 @@
                     <p style="font-size: large;">{{chat.chatSubject}}</p>
                     <p style="color:lightgrey;">{{chat.message.body.text}}</p>
                 </div>
-                <span *ngIf="getUnreadCount(chat)" style="border: 1px solid greenyellow; min-width: 20px; border-radius: 50%; text-align: center; font-size: medium; position: absolute; right: 3px; bottom: 19px; color: ghostwhite;">
-                    {{getUnreadCount(chat)}}
-                </span>
+                <ng-container *ngFor="let unreadCount of chat.unreadMessageCount">
+                    <ng-container *ngIf="unreadCount.totalUnread == -1 && unreadCount.userId == userID">
+                        <span style="border-radius: 50%; text-align: center; font-size: medium; position: absolute; right: 3px; bottom: 19px;">
+                             <mat-icon style="font-size: medium; color: rgb(0, 180, 69);">lens</mat-icon>
+                        </span>
+                    </ng-container>
+                    <ng-container *ngIf="unreadCount.totalUnread > 0 && unreadCount.userId == userID">
+                        <span style="border: 1px solid greenyellow; min-width: 20px; border-radius: 50%; text-align: center; font-size: medium; position: absolute; right: 3px; bottom: 19px; color: ghostwhite;">
+                            {{unreadCount.totalUnread}}
+                        </span>
+                    </ng-container>
+                </ng-container>
             </div>
         </mat-nav-list>
     </mat-sidenav>
