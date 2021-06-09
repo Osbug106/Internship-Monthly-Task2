@@ -70,8 +70,8 @@
 
             </div>
             <div style="color: white !important; position:relative !important;">
-                <input #newChatInput placeholder="Search connects..." style="border: 1px solid black; border-radius: 5px; margin-right: 5px;" (keyup)="getConnections($event.target.value)">
-                <input *ngIf="groupChat" #newGroupName placeholder="Group name" style="border: 1px solid black; border-radius: 5px; margin-right: 5px;">
+                <input #newChatInput placeholder="Search connects..." class="composeInput" (keyup)="getConnections($event.target.value)">
+                <input *ngIf="groupChat" #newGroupName placeholder="Group name" class="composeInput">
                 <span *ngIf="groupNameNotEntered" style="font-size: small; color: red;">Enter group name</span>
 
                 <div *ngIf="searchConnects.length" class="dropdown-content" style="position: absolute;">

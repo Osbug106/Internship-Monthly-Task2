@@ -19,16 +19,13 @@ export class MainContentComponent implements OnInit {
   constructor(private aRoute: ActivatedRoute, private route: Router, private proService: FetchProductsService) {
     this.route.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
-        // console.log(`Params: ${event.url}`);
         if (event.url != '/') {
           this.isProductDetails = true;
           if (event.url.split('/')[2] === 'p') {
             this.proService.getProducts(event.url)
               .subscribe(
                 (result: any) => {
-                  // console.log(result);
                   this.products = result.data;
-                  // console.log(this.serverURL+this.products[3].product_images[0]['250']);
                 },
                 error => { console.log("Error in fetching products: ", error) },
                 () => { console.log("Products Fetching complete.") }
@@ -50,7 +47,6 @@ export class MainContentComponent implements OnInit {
         }
       }
     });
-    // console.log("Products: ", this.products);
   }
 
   ngOnInit(): void {
@@ -63,7 +59,6 @@ export class MainContentComponent implements OnInit {
 
   changeMainImage(image) {
     this.mainImage = image.src;
-    // console.log(image.naturalWidth, image.naturalHeight);
   }
 
   ///////////////////////////////
@@ -87,10 +82,6 @@ export class MainContentComponent implements OnInit {
       lens.style.width = (img.width / 3) + "px";
       lens.style.height = (img.height / 1) + "px";
     }
-    // else{
-    //   lens.style.width = (img.width / 2) + "px";
-    //   lens.style.height = (img.height / 2) + "px";
-    // }
 
     cx = result.offsetWidth / lens.offsetWidth;
     cy = result.offsetHeight / lens.offsetHeight;

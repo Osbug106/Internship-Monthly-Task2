@@ -318,9 +318,10 @@ export class MainChatComponent implements OnChanges, OnInit {
         receiver: {
           id: { _id: this.newChatReciever._id }
         },
-        chatType: "",
+        chatType: "peer",
         deletedBy: [],
       }
+      console.log("In M-C sendNewMessage: ", msg)
       this.chatService.emit('newChatMessage', msg);
     }
     else {
@@ -350,10 +351,10 @@ export class MainChatComponent implements OnChanges, OnInit {
         deletedBy: [],
       }
       this.chatService.emit('newGroup', msg);
+      this.newGroupName.nativeElement.value = "";
     }
     this.newGroupChatMembers = [];
     this.message.nativeElement.value = "";
-    this.newGroupName.nativeElement.value = "";
   }
 
   moreChatOptionToggle() {

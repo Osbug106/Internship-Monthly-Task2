@@ -120,6 +120,8 @@ io.on("connection", (socket) => {
     socket.on("newChatMessage", async(data) => {
         var reciever = getUser(data.receiver.id._id);
 
+        console.log("In socket newChatMessage: ", data);
+
         var chat = await checkChat({
             senderId: data.sender.id._id,
             reveiverId: data.receiver.id._id,
@@ -147,8 +149,12 @@ io.on("connection", (socket) => {
             var newChat = await createChat(data);
             data.chatId = newChat.channelId;
 
+            console.log("In socket after createChat: ", data);
+
             await addMessage(data);
             var updatedchat = await updateChat(data);
+
+            console.log("In socket after updatedchat: ", updatedchat);
 
             if (reciever !== undefined) {
                 reciever.socketID.forEach((socketid) => {
@@ -192,7 +198,6 @@ io.on("connection", (socket) => {
     socket.on("newGroup", async(data) => {
         var reciever;
         var newChat = [];
-        await addGroupMessage(data);
 
         data.participants.forEach((member) => {
             if (member.userId != data.sender.id._id) {
@@ -202,6 +207,7 @@ io.on("connection", (socket) => {
 
         newChat.push(await createGroupChat(data));
         data.chatId = newChat.channelId;
+        await addGroupMessage(data);
 
         data.participants.forEach((member) => {
             reciever = getUser(member._id);

@@ -193,7 +193,7 @@ export class ChatLeftPanelComponent implements OnChanges, OnInit {
     this.chatService.listen('updatedchat')
       .subscribe(
         (data) => {
-          if (data[0].chatType !== 'group') {
+          if (data[0].chatType != 'group') {
             var oldChatIndex = this.chats.findIndex((chat) => {
               return chat.channelId == data[0].channelId;
             });

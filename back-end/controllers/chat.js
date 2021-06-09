@@ -309,33 +309,33 @@ module.exports.incUnreadCount = async(chatId, userId) => {
     }, {
         unreadMessageCount: 1,
     });
-
     var unreadCount;
+    if (count.length) {
+        count[0].unreadMessageCount.forEach((obj) => {
+            if (obj.userId == userId) {
+                unreadCount = obj.totalUnread;
+            }
+        });
 
-    count[0].unreadMessageCount.forEach((obj) => {
-        if (obj.userId == userId) {
-            unreadCount = obj.totalUnread;
+        if (unreadCount == -1) {
+            await Chat.updateOne({
+                channelId: chatId,
+                "unreadMessageCount.userId": userId,
+            }, {
+                $set: {
+                    "unreadMessageCount.$.totalUnread": 1,
+                },
+            });
+        } else {
+            await Chat.updateOne({
+                channelId: chatId,
+                "unreadMessageCount.userId": userId,
+            }, {
+                $inc: {
+                    "unreadMessageCount.$.totalUnread": 1,
+                },
+            });
         }
-    });
-
-    if (unreadCount == -1) {
-        await Chat.updateOne({
-            channelId: chatId,
-            "unreadMessageCount.userId": userId,
-        }, {
-            $set: {
-                "unreadMessageCount.$.totalUnread": 1,
-            },
-        });
-    } else {
-        await Chat.updateOne({
-            channelId: chatId,
-            "unreadMessageCount.userId": userId,
-        }, {
-            $inc: {
-                "unreadMessageCount.$.totalUnread": 1,
-            },
-        });
     }
 };
 
