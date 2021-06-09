@@ -25,6 +25,7 @@ export class MainChatComponent implements OnChanges, OnInit {
   @ViewChild('newChatInput') newChatInput: ElementRef;
   @ViewChild('newGroupName') newGroupName: ElementRef;
   userID = this.getCookie("user");
+  token = this.getCookie("id_token");
   chatID: any;
   messages: any;
   chatType: any;
@@ -116,9 +117,7 @@ export class MainChatComponent implements OnChanges, OnInit {
         .subscribe(
           (messages) => {
             this.messages = messages;
-            setTimeout(() => {
-              this.scrollToBottom();
-            }, 0);
+            this.scrollToBottom();
           },
           (error) => {
             console.log("Error in fetching messages: ", error);
@@ -134,8 +133,11 @@ export class MainChatComponent implements OnChanges, OnInit {
   }
 
   scrollToBottom(): void {
+    this.changeRef.detectChanges();
     if (!this.openNewChat) {
+      this.changeRef.detectChanges();
       this.chatArea.nativeElement.scrollTop = this.chatArea.nativeElement.scrollHeight;
+      this.changeRef.detectChanges();
     }
   }
 
@@ -144,7 +146,7 @@ export class MainChatComponent implements OnChanges, OnInit {
     var msg
 
     if (this.receiver.chatType !== 'group') {
-      if (newMessage === "") return;
+      if (newMessage === "" || newMessage === " ") return;
       msg = {
         message: {
           type: "text",
@@ -165,7 +167,7 @@ export class MainChatComponent implements OnChanges, OnInit {
       this.chatService.emit('message', msg);
     }
     else {
-      if (newMessage === "") return;
+      if (newMessage === "" || newMessage === " ") return;
       msg = {
         message: {
           type: "text",
@@ -300,7 +302,7 @@ export class MainChatComponent implements OnChanges, OnInit {
     var newMessage = this.message.nativeElement.value;
     var msg;
     if (!this.groupChat) {
-      if (newMessage === "") return;
+      if (newMessage === "" || newMessage === " ") return;
       msg = {
         message: {
           type: "text",
@@ -329,7 +331,7 @@ export class MainChatComponent implements OnChanges, OnInit {
       else {
         this.groupNameNotEntered = false;
       }
-      if (newMessage === "") return;
+      if (newMessage === "" || newMessage === " ") return;
       msg = {
         message: {
           type: "text",

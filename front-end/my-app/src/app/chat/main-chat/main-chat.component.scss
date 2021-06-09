@@ -178,9 +178,10 @@ section.chat__section {
     padding: 10px;
     border-radius: 4px;
     margin-bottom: 20px;
-    max-width: 300px;
+    max-width: 290px;
     position: relative;
     font-size: medium;
+    word-wrap: break-word;
 }
 
 .message h4 {
@@ -232,10 +233,11 @@ section.chat__section {
     display: block;
     position: absolute;
     background-color: #f6f6f6;
-    min-width: 230px;
+    min-width: 20px;
     overflow: auto;
     border: 1px solid #ddd;
     z-index: 1;
+    box-shadow: 3px 3px 5px 3px #888888;
 }
 
 .dropdown-content a {

@@ -26,12 +26,12 @@
                 <ng-container *ngIf='chatMessage.deletedBy.length'>
                     <ng-container *ngFor='let msg of chatMessage.deletedBy'>
                         <div *ngIf="msg.userId != userID" style="width: fit-content;" class="message" [ngClass]="chatMessage.sender.id._id === userID ? 'outgoing' : 'incoming'">
-                            {{chatMessage.message.body.text}}
+                            <p style="margin: 0px;">{{chatMessage.message.body.text}}</p>
                         </div>
                     </ng-container>
                 </ng-container>
                 <div *ngIf='!chatMessage.deletedBy.length' style="width: fit-content;" class="message" [ngClass]="chatMessage.sender.id._id === userID ? 'outgoing' : 'incoming'">
-                    {{chatMessage.message.body.text}}
+                    <p style="margin: 0px;"> {{chatMessage.message.body.text}}</p>
                 </div>
             </div>
         </div>

@@ -1,9 +1,5 @@
 <mat-sidenav-container>
     <mat-sidenav class="mat-elevation-z8" #sidenav="matSidenav">
-        <!-- <div style="width: 100%; text-align:center">
-            <input type="text" name="" id="">
-            <mat-icon style="vertical-align: middle; right:0px">search</mat-icon>
-        </div> -->
         <mat-nav-list *ngIf="personalChat">
             <div class="chat" *ngFor="let chat of chats" (click)="showMessages(chat)">
                 <div style="position: relative;">
@@ -11,17 +7,17 @@
                     <img class="avatar" src="../../../assets/images/img1.png" alt="">
                 </div>
                 <div style="line-height: 12px; padding-left: 10px; padding-top: 20px; padding-bottom: 5px;">
-                    <p style="font-size: large;">{{checkreciever(chat)}}</p>
-                    <p style="color:lightgrey;">{{chat.message.body.text}}</p>
+                    <p style="font-size: large;" class="chatName">{{checkreciever(chat)}}</p>
+                    <p style="color:lightgrey;" class="chatName">{{chat.message.body.text}}</p>
                 </div>
                 <ng-container *ngFor="let unreadCount of chat.unreadMessageCount">
                     <ng-container *ngIf="unreadCount.totalUnread == -1 && unreadCount.userId == userID">
-                        <span style="border-radius: 50%; text-align: center; font-size: medium; position: absolute; right: 3px; bottom: 19px;">
+                        <span class="unreadCount">
                              <mat-icon style="font-size: medium; color: rgb(0, 180, 69);">lens</mat-icon>
                         </span>
                     </ng-container>
-                    <ng-container *ngIf="unreadCount.totalUnread > 0 && unreadCount.userId == userID">
-                        <span style="border: 1px solid greenyellow; min-width: 20px; border-radius: 50%; text-align: center; font-size: medium; position: absolute; right: 3px; bottom: 19px; color: ghostwhite;">
+                    <ng-container *ngIf="unreadCount.totalUnread > 0 && unreadCount.userId == userID && chat.channelId != channelId">
+                        <span class="unreadCount" style="border: 1px solid greenyellow; min-width: 20px; color: ghostwhite;">
                             {{unreadCount.totalUnread}}
                         </span>
                     </ng-container>
@@ -35,17 +31,17 @@
                     <img class="avatar" src="../../../assets/images/group-chat-avatar.jpg" alt="">
                 </div>
                 <div style="line-height: 12px; padding-left: 10px; padding-top: 20px; padding-bottom: 5px;">
-                    <p style="font-size: large;">{{chat.chatSubject}}</p>
-                    <p style="color:lightgrey;">{{chat.message.body.text}}</p>
+                    <p class="chatName" style="font-size: large;">{{chat.chatSubject}}</p>
+                    <p class="chatName" style="color:lightgrey;">{{chat.message.body.text}}</p>
                 </div>
                 <ng-container *ngFor="let unreadCount of chat.unreadMessageCount">
                     <ng-container *ngIf="unreadCount.totalUnread == -1 && unreadCount.userId == userID">
-                        <span style="border-radius: 50%; text-align: center; font-size: medium; position: absolute; right: 3px; bottom: 19px;">
+                        <span class="unreadCount">
                              <mat-icon style="font-size: medium; color: rgb(0, 180, 69);">lens</mat-icon>
                         </span>
                     </ng-container>
                     <ng-container *ngIf="unreadCount.totalUnread > 0 && unreadCount.userId == userID">
-                        <span style="border: 1px solid greenyellow; min-width: 20px; border-radius: 50%; text-align: center; font-size: medium; position: absolute; right: 3px; bottom: 19px; color: ghostwhite;">
+                        <span class="unreadCount" style="border: 1px solid greenyellow; min-width: 20px; color: ghostwhite;">
                             {{unreadCount.totalUnread}}
                         </span>
                     </ng-container>

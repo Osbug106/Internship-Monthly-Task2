@@ -8,12 +8,21 @@
                 close
             </mat-icon>
         </button>
-        <div style="display: flex; width: 100%; justify-content: space-between;">
+        <div style="display: flex; width: 100%; justify-content: space-between; vertical-align: middle; align-items: center;">
             <h1 [routerLink]="['/']" style="font-size: larger; cursor: pointer;">SeeBiz</h1>
             <div style="display: flex;">
-                <h3 (click)="setPersonalChat();" style="font-size: medium; cursor: pointer; margin-left: 10px;">Personal Chats</h3>
-                <h3 (click)="setGroupChat();" style="font-size: medium; cursor: pointer; margin-left: 10px;">Group Chats</h3>
-                <h3 (click)="setNewChat();" style="font-size: medium; cursor: pointer; margin-left: 10px;">New Chat</h3>
+                <div (click)="setPersonalChat();" style="cursor: pointer; text-align: center; margin-left: 15px;">
+                    <img class="icon" src="../../../assets/images/personal_chat_icon.png" alt="">
+                    <h3 style="font-size: medium;">Chats</h3>
+                </div>
+                <div (click)="setGroupChat();" style="cursor: pointer; text-align: center; margin-left: 15px;">
+                    <img class="icon" src="../../../assets/images/group_chat_icon.png" alt="">
+                    <h3 style="font-size: medium;">Groups</h3>
+                </div>
+                <div (click)="setNewChat();" style="cursor: pointer; text-align: center; margin-left: 15px;">
+                    <img class="icon" src="../../../assets/images/new_chat_icon.png" alt="">
+                    <h3 style="font-size: medium;">Compose</h3>
+                </div>
             </div>
 
             <!-- <span class="menu-spacer"></span> -->
