@@ -368,13 +368,17 @@ module.exports.checkChat = async(data) => {
                 "sender.id": data.senderId,
             }, {
                 "receiver.id": data.reveiverId,
-            }, ],
+            }, {
+                "chatType" : {$ne: "group"},
+            }],
         }, {
             $and: [{
                 "sender.id": data.reveiverId,
             }, {
                 "receiver.id": data.senderId,
-            }, ],
+            }, {
+                "chatType" : {$ne: "group"},
+            }],
         }, ],
     }, {
         _id: 1,

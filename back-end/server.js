@@ -120,12 +120,14 @@ io.on("connection", (socket) => {
     socket.on("newChatMessage", async(data) => {
         var reciever = getUser(data.receiver.id._id);
 
-        console.log("In socket newChatMessage: ", data);
+        console.log("Server:" ,data);
 
         var chat = await checkChat({
             senderId: data.sender.id._id,
             reveiverId: data.receiver.id._id,
         });
+
+        console.log("If old chat:" ,chat);
 
         if (chat.length) {
             data.chatId = chat[0].channelId;
@@ -149,12 +151,12 @@ io.on("connection", (socket) => {
             var newChat = await createChat(data);
             data.chatId = newChat.channelId;
 
-            console.log("In socket after createChat: ", data);
+            console.log("New Chat:" ,newChat);
 
             await addMessage(data);
             var updatedchat = await updateChat(data);
 
-            console.log("In socket after updatedchat: ", updatedchat);
+            console.log("Updated Chat:" ,updatedchat);
 
             if (reciever !== undefined) {
                 reciever.socketID.forEach((socketid) => {

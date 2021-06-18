@@ -321,7 +321,7 @@ export class MainChatComponent implements OnChanges, OnInit {
         chatType: "peer",
         deletedBy: [],
       }
-      console.log("In M-C sendNewMessage: ", msg)
+      console.log("Client Before sending:" ,msg);
       this.chatService.emit('newChatMessage', msg);
     }
     else {

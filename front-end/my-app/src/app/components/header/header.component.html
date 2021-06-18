@@ -14,7 +14,7 @@
                 <mat-icon *ngIf="checkLogin()" matTooltip="Chats" style="cursor: pointer; color: white; margin-left: 15px;" [routerLink]="['/chat']"> chat </mat-icon>
 
                 <div *ngIf="!checkLogin()" style="cursor: pointer; margin-left: 15px;" [routerLink]="['/login']">Login</div>
-                <div *ngIf="!checkLogin()" style="cursor: pointer; margin-left: 15px;">Register</div>
+                <div *ngIf="!checkLogin()" style="cursor: pointer; margin-left: 15px;" [routerLink]="['/register']">Register</div>
 
                 <div *ngIf="checkLogin()" style="cursor: pointer; margin-left: 15px;" mat-button [matMenuTriggerFor]="menu">
                     Menu
